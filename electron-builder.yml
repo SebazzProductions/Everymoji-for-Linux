@@ -1,0 +1,46 @@
+appId: com.everymoji.app
+productName: Everymoji
+directories:
+  buildResources: build
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+asarUnpack:
+  - resources/**
+linux:
+  executableName: everymoji
+  category: Utility
+  icon: build/icon.png
+  synopsis: A lightweight emoji picker that inserts emojis at your cursor
+  description: >-
+    Everymoji is a small, love-crafted companion for people who use emojis all
+    the time. A fast, searchable picker that puts the emoji exactly where the
+    cursor is waiting — in chats, notes, posts, mails, anywhere. Favorites,
+    recents, skin tones, themes and a global hotkey included.
+  desktop:
+    entry:
+      Name: Everymoji
+      Comment: Insert emojis anywhere at your cursor
+      Keywords: emoji;picker;smiley;unicode;
+      Categories: Utility;
+      StartupWMClass: Everymoji
+  target:
+    - AppImage
+    - deb
+appImage:
+  artifactName: ${productName}-${version}.${ext}
+deb:
+  artifactName: ${productName}-${version}.${ext}
+  # xdotool = X11 auto-insert; wtype/ydotool cover Wayland. wl-clipboard/xclip
+  # are optional clipboard helpers. All are "recommends" so the .deb installs
+  # even when a user only needs one of the paths.
+  recommends:
+    - xdotool
+    - wtype
+    - ydotool
+    - wl-clipboard
+npmRebuild: false

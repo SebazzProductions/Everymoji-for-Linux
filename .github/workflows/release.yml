@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Linux release (AppImage + deb)
+        run: npm run build:linux
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/Everymoji-*.AppImage
+            dist/Everymoji-*.deb
+          generate_release_notes: true
+          body: |
+            Everymoji for Linux.
+
+            AppImage (portable, runs anywhere) and .deb (Debian/Ubuntu/Pop!_OS).
+            Includes theme support, favorites, recents, skin tones and
+            paste-to-cursor on X11 (xdotool) and Wayland (wtype / ydotool).
