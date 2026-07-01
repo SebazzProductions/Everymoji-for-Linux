@@ -14,6 +14,7 @@ asarUnpack:
 linux:
   executableName: everymoji
   category: Utility
+  maintainer: SebazzProductions <info.sebastian.rau@web.de>
   icon: build/icon.png
   synopsis: A lightweight emoji picker that inserts emojis at your cursor
   description: >-
